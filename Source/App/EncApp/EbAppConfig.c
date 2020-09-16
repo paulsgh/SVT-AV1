@@ -1398,7 +1398,6 @@ void eb_2pass_config_update(EbConfig *config_ptr) {
         config_ptr->enc_mode = MAX_ENC_PRESET;
         config_ptr->look_ahead_distance = 1;
         config_ptr->enable_tpl_la = 0;
-        config_ptr->rate_control_mode = 0;
         config_ptr->intra_refresh_type     = 2;
     }
     else if (config_ptr->pass == ENCODE_LAST_PASS || config_ptr->input_stat_file) {
