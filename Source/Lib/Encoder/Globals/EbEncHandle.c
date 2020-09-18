@@ -1950,6 +1950,19 @@ void set_param_based_on_input(SequenceControlSet *scs_ptr)
     scs_ptr->static_config.source_width = scs_ptr->max_input_luma_width;
     scs_ptr->static_config.source_height = scs_ptr->max_input_luma_height;
 
+    if (use_output_stat(scs_ptr)) {
+        scs_ptr->static_config.enc_mode = MAX_ENC_PRESET;
+        scs_ptr->static_config.look_ahead_distance = 1;
+        scs_ptr->static_config.enable_tpl_la = 0;
+        scs_ptr->static_config.rate_control_mode = 0;
+        scs_ptr->static_config.intra_refresh_type     = 2;
+    }
+    else if (use_input_stat(scs_ptr)) {
+        scs_ptr->static_config.look_ahead_distance = 16;
+        scs_ptr->static_config.enable_tpl_la = 1;
+        scs_ptr->static_config.intra_refresh_type     = 2;
+    }
+
     derive_input_resolution(
         &scs_ptr->input_resolution,
         scs_ptr->seq_header.max_frame_width*scs_ptr->seq_header.max_frame_height);
