@@ -1402,7 +1402,6 @@ EbConfig * eb_config_ctor(EncodePass pass) {
         config_ptr->pass = 1;
     else if (pass == ENCODE_LAST_PASS)
         config_ptr->pass = 2;
-    eb_2pass_config_update(config_ptr);
 
     config_ptr->error_log_file         = stderr;
     config_ptr->frame_rate             = 30 << 16;
