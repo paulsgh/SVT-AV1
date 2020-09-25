@@ -2443,7 +2443,7 @@ static EbErrorType verify_settings(
     }
 
     if (config->rate_control_mode > 1 && (config->rc_firstpass_stats_out || config->rc_twopass_stats_in.buf)) {
-        SVT_LOG("Error Instance %u: Only rate control mode 0 and 1 is supported for 2-pass \n", channel_number + 1);
+        SVT_LOG("Error Instance %u: Only rate control mode 0 and 1 are supported for 2-pass \n", channel_number + 1);
         return_error = EB_ErrorBadParameter;
     }
 
