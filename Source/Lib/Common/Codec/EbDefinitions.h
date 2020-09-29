@@ -46,6 +46,17 @@ extern "C" {
     ((AOM_BORDER_IN_PIXELS >> subsampling) - AOM_INTERP_EXTEND)
 #define AOM_LEFT_TOP_MARGIN_SCALED(subsampling) \
     (AOM_LEFT_TOP_MARGIN_PX(subsampling) << SCALE_SUBPEL_BITS)
+
+#define INTER_COMPOUND_MODE_M0 0
+#define ADAPTIVE_MD_CYCLES_M0 0
+#define SQ_WEIGHT_M0 0
+#define TXS_IN_INTER_CLASSES_M0 0
+#define NIC_SCALING_M0 0
+#define HBD_MODE_M0 0
+#define SEARCH_AREA_M0 0
+#define HME_DECIMATION_M0 0
+#define DIST_BASED_REF_PRUNING_M0 0
+
 typedef enum GM_LEVEL {
     GM_FULL      = 0, // Exhaustive search mode.
     GM_DOWN      = 1, // Downsampled search mode, with a downsampling factor of 2 in each dimension

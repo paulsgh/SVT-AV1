@@ -807,8 +807,13 @@ EbErrorType signal_derivation_mode_decision_config_kernel_oq(
     frm_hdr->is_motion_mode_switchable = frm_hdr->is_motion_mode_switchable ||
         pcs_ptr->parent_pcs_ptr->pic_obmc_level;
     if (scs_ptr->static_config.enable_hbd_mode_decision == DEFAULT)
+        #if HBD_MODE_M0
+        if (pcs_ptr->parent_pcs_ptr->enc_mode <= ENC_M1)
+            pcs_ptr->hbd_mode_decision = 1;
+        #else
         if (pcs_ptr->parent_pcs_ptr->enc_mode <= ENC_M0)
             pcs_ptr->hbd_mode_decision = 1;
+        #endif
         else
             pcs_ptr->hbd_mode_decision = 2;
     else

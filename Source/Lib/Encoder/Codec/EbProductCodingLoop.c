@@ -6817,8 +6817,13 @@ EbErrorType signal_derivation_block(PictureControlSet *pcs,
             context_ptr->dist_based_ref_pruning = 0;
         else if (context_ptr->pd_pass == PD_PASS_1)
             context_ptr->dist_based_ref_pruning = 0;
+        #if DIST_BASED_REF_PRUNING_M0
+        else if (enc_mode <= ENC_M1)
+            context_ptr->dist_based_ref_pruning = 1;
+        #else
         else if (enc_mode <= ENC_M0)
             context_ptr->dist_based_ref_pruning = 1;
+        #endif
         else
             context_ptr->dist_based_ref_pruning = 4;
     }

@@ -134,10 +134,17 @@ void *set_me_hme_params_oq(MeContext *me_context_ptr, PictureParentControlSet *p
                 me_context_ptr->max_me_search_width = me_context_ptr->max_me_search_height = 350;
         }
             }
+    #if SEARCH_AREA_M0
+    else if (pcs_ptr->enc_mode <= ENC_M1) {
+        me_context_ptr->search_area_width = me_context_ptr->search_area_height = 64;
+        me_context_ptr->max_me_search_width = me_context_ptr->max_me_search_height = 256;
+    }
+    #else
     else if (pcs_ptr->enc_mode <= ENC_M0) {
     me_context_ptr->search_area_width = me_context_ptr->search_area_height = 64;
     me_context_ptr->max_me_search_width = me_context_ptr->max_me_search_height = 256;
     }
+    #endif
     else if (pcs_ptr->enc_mode <= ENC_M1) {
         me_context_ptr->search_area_width = me_context_ptr->search_area_height = 64;
         me_context_ptr->max_me_search_width = me_context_ptr->max_me_search_height = 192;
@@ -205,7 +212,11 @@ void *set_me_hme_params_oq(MeContext *me_context_ptr, PictureParentControlSet *p
                 me_context_ptr->hme_level2_search_area_in_height_array[1] = 16/2;
         }
     if (input_resolution <= INPUT_SIZE_720p_RANGE)
+        #if HME_DECIMATION_M0
+        me_context_ptr->hme_decimation = pcs_ptr->enc_mode <= ENC_M1 ? ONE_DECIMATION_HME : TWO_DECIMATION_HME;
+        #else
         me_context_ptr->hme_decimation = pcs_ptr->enc_mode <= ENC_M0 ? ONE_DECIMATION_HME : TWO_DECIMATION_HME;
+        #endif
     else
         me_context_ptr->hme_decimation = TWO_DECIMATION_HME;
 

@@ -2411,8 +2411,13 @@ EbErrorType signal_derivation_enc_dec_kernel_oq(
         // 2       ON: Fast - Use AVG only for non-closest ref frames or ref frames with high distortion
     if (sequence_control_set_ptr->compound_mode) {
             if (sequence_control_set_ptr->static_config.compound_level == DEFAULT) {
+                #if INTER_COMPOUND_MODE_M0
+                if (enc_mode <= ENC_M1)
+                    context_ptr->inter_compound_mode = 1;
+                #else
                 if (enc_mode <= ENC_M0)
                     context_ptr->inter_compound_mode = 1;
+                #endif
                 else if (enc_mode <= ENC_M3)
                     context_ptr->inter_compound_mode = 2;
                 else
@@ -2560,8 +2565,13 @@ EbErrorType signal_derivation_enc_dec_kernel_oq(
         if (pd_pass == PD_PASS_2) {
             if (enc_mode <= ENC_MR)
                 adaptive_md_cycles_level = 0;
+            #if ADAPTIVE_MD_CYCLES_M0
+            else if (enc_mode <= ENC_M1)
+                adaptive_md_cycles_level = pcs_ptr->slice_type == I_SLICE ? 0 : 1;
+            #else
             else if (enc_mode <= ENC_M0)
                 adaptive_md_cycles_level = pcs_ptr->slice_type == I_SLICE ? 0 : 1;
+            #endif
             else if (enc_mode <= ENC_M1)
                 adaptive_md_cycles_level = pcs_ptr->slice_type == I_SLICE ? 0 : 2;
             else if (enc_mode <= ENC_M2)
@@ -2589,8 +2599,13 @@ EbErrorType signal_derivation_enc_dec_kernel_oq(
                 if (enc_mode <= ENC_MR)
                     context_ptr->sq_weight = 115;
                 else
+                    #if SQ_WEIGHT_M0
+                    if (enc_mode <= ENC_M1)
+                        context_ptr->sq_weight = 105;
+                    #else
                     if (enc_mode <= ENC_M0)
                         context_ptr->sq_weight = 105;
+                    #endif
                     else if (enc_mode <= ENC_M1)
                         context_ptr->sq_weight = 100;
                     else if (enc_mode <= ENC_M2)
@@ -2685,8 +2700,13 @@ EbErrorType signal_derivation_enc_dec_kernel_oq(
     // 2 ON  - INTER TXS restricted to max 1 depth
     if (enc_mode <= ENC_MRS)
         context_ptr->txs_in_inter_classes = 1;
+    #if TXS_IN_INTER_CLASSES_M0
+    else if (enc_mode <= ENC_M1)
+        context_ptr->txs_in_inter_classes = 2;
+    #else
     else if (enc_mode <= ENC_M0)
         context_ptr->txs_in_inter_classes = 2;
+    #endif
     else
         context_ptr->txs_in_inter_classes = 0;
 
@@ -2708,8 +2728,13 @@ EbErrorType signal_derivation_enc_dec_kernel_oq(
     if (!mode_offset) {
         if (enc_mode <= ENC_MR)
             context_ptr->nic_scaling_level = 0;
+        #if NIC_SCALING_M0
+        else if (enc_mode <= ENC_M1)
+            context_ptr->nic_scaling_level = 1;
+        #else
         else if (enc_mode <= ENC_M0)
             context_ptr->nic_scaling_level = 1;
+        #endif
         else if (enc_mode <= ENC_M1)
             context_ptr->nic_scaling_level = 3;
         else if (enc_mode <= ENC_M2)
