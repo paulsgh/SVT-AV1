@@ -56,6 +56,9 @@ extern "C" {
 #define SEARCH_AREA_M0 0
 #define HME_DECIMATION_M0 0
 #define DIST_BASED_REF_PRUNING_M0 0
+#define SQ_WEIGHT_M1 0
+#define TXS_IN_INTER_CLASSES_M1 0
+#define SEARCH_AREA_M1 0
 
 typedef enum GM_LEVEL {
     GM_FULL      = 0, // Exhaustive search mode.

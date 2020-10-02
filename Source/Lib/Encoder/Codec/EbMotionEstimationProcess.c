@@ -139,16 +139,21 @@ void *set_me_hme_params_oq(MeContext *me_context_ptr, PictureParentControlSet *p
         me_context_ptr->search_area_width = me_context_ptr->search_area_height = 64;
         me_context_ptr->max_me_search_width = me_context_ptr->max_me_search_height = 256;
     }
-    #else
-    else if (pcs_ptr->enc_mode <= ENC_M0) {
-    me_context_ptr->search_area_width = me_context_ptr->search_area_height = 64;
-    me_context_ptr->max_me_search_width = me_context_ptr->max_me_search_height = 256;
-    }
-    #endif
+    #elif SEARCH_AREA_M1
     else if (pcs_ptr->enc_mode <= ENC_M1) {
         me_context_ptr->search_area_width = me_context_ptr->search_area_height = 64;
         me_context_ptr->max_me_search_width = me_context_ptr->max_me_search_height = 192;
     }
+    #else
+    else if (pcs_ptr->enc_mode <= ENC_M0) {
+        me_context_ptr->search_area_width = me_context_ptr->search_area_height = 64;
+        me_context_ptr->max_me_search_width = me_context_ptr->max_me_search_height = 256;
+    }
+    else if (pcs_ptr->enc_mode <= ENC_M1) {
+        me_context_ptr->search_area_width = me_context_ptr->search_area_height = 64;
+        me_context_ptr->max_me_search_width = me_context_ptr->max_me_search_height = 192;
+    }
+    #endif
     else if (pcs_ptr->enc_mode <= ENC_M3) {
         me_context_ptr->search_area_width = me_context_ptr->search_area_height = 64;
         me_context_ptr->max_me_search_width = me_context_ptr->max_me_search_height = 128;

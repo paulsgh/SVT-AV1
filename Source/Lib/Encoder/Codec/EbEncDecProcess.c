@@ -2602,12 +2602,15 @@ EbErrorType signal_derivation_enc_dec_kernel_oq(
                     #if SQ_WEIGHT_M0
                     if (enc_mode <= ENC_M1)
                         context_ptr->sq_weight = 105;
+                    #elif SQ_WEIGHT_M1
+                     if (enc_mode <= ENC_M1)
+                         context_ptr->sq_weight = 100;
                     #else
                     if (enc_mode <= ENC_M0)
                         context_ptr->sq_weight = 105;
-                    #endif
                     else if (enc_mode <= ENC_M1)
                         context_ptr->sq_weight = 100;
+                    #endif
                     else if (enc_mode <= ENC_M2)
                         context_ptr->sq_weight = 95;
                     else
@@ -2703,6 +2706,9 @@ EbErrorType signal_derivation_enc_dec_kernel_oq(
     #if TXS_IN_INTER_CLASSES_M0
     else if (enc_mode <= ENC_M1)
         context_ptr->txs_in_inter_classes = 2;
+    #elif TXS_IN_INTER_CLASSES_M1
+    else if (enc_mode <= ENC_M1)
+        context_ptr->txs_in_inter_classes = 0;
     #else
     else if (enc_mode <= ENC_M0)
         context_ptr->txs_in_inter_classes = 2;
